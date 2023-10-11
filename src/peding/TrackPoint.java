@@ -7,7 +7,7 @@ import java.util.List;
 public class TrackPoint {
 	List<String>linkedList = new ArrayList<String>();
 	
-	public TrackPoint(String rad) {
+	public TrackPoint(String rad) {  
 		
 	}
 	
