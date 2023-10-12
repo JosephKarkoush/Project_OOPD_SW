@@ -18,7 +18,7 @@ public class TrackPoint {
 	String[] atributeslist = new String[9];
 
 	public TrackPoint(String inputLine) {
-		atributeslist = inputLine.split(";");
+		atributeslist = inputLine.replace(",", ".").split(";");
 		this.date = atributeslist[0];
 		this.time = atributeslist[1];
 		this.elapsedTime = atributeslist[2];
