@@ -9,27 +9,32 @@ import java.util.Scanner;
 public class Import {
 	String line;
 	String test;
-	public Import() throws FileNotFoundException {
+	public Import() {
 
 		List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
-		FileReader fileReader = new FileReader(
-				"C:\\Users\\moham\\Downloads\\csv\\csv\\argostoliGrekland\\activity_2016019890.csv");
-		Scanner sc = new Scanner(fileReader);
+		try {
+			FileReader fileReader = new FileReader(
+					"C:\\Users\\moham\\Downloads\\csv\\csv\\argostoliGrekland\\activity_2016019890.csv");
+			Scanner sc = new Scanner(fileReader);
+			sc.nextLine();
 
-		sc.nextLine();
-
-		while (sc.hasNextLine()) {
-			line = sc.nextLine();
-			TrackPoint tp = new TrackPoint(line);
-			trackPointList.add(tp);
+			while (sc.hasNextLine()) {
+				line = sc.nextLine();
+				TrackPoint tp = new TrackPoint(line);
+				trackPointList.add(tp);
+				
+			}
+			sc.close();
 			
+		} catch (Exception e) { 
+			System.err.println("file not found");
 		}
 
 		Activity newActivity = new Activity(trackPointList);
 		Statistic statistic = new Statistic(newActivity);
 		
 		this.test = statistic.getMaxCadence();
-		sc.close();
+		
 	}
 	public String test() {
 		return test;
