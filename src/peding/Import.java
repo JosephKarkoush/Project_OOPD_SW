@@ -28,7 +28,7 @@ public class Import {
 		Activity newActivity = new Activity(trackPointList);
 		Statistic statistic = new Statistic(newActivity);
 		
-		this.test = statistic.getMinHeartRate();
+		this.test = statistic.getMaxCadence();
 		sc.close();
 	}
 	public String test() {
