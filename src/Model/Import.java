@@ -1,4 +1,4 @@
-package peding;
+package Model;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

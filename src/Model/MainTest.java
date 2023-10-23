@@ -1,4 +1,4 @@
-package peding;
+package Model;
 
 
 public class MainTest {

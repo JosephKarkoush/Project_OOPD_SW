@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import peding.Activity;
+import Model.Activity;
 
 public class ActivityPanel extends JPanel {
 	DataPanel dataPanel = new DataPanel();
