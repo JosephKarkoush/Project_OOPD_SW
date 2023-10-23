@@ -35,6 +35,7 @@ public class ActivityPanel extends JPanel {
 	}
 	public void settActivites(List<Activity> activities) {
 		
+		
 	
 	}
 	
