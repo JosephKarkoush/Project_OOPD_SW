@@ -1,7 +1,16 @@
 package view;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+
+
+
 
 public class SpeedGraph extends JPanel {
+	
+
+	
+	public SpeedGraph() {
+		
+	}
 
 }
