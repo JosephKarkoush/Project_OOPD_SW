@@ -22,7 +22,6 @@ public class Import {
 				line = sc.nextLine();
 				TrackPoint tp = new TrackPoint(line);
 				trackPointList.add(tp);
-				
 			}
 			sc.close();
 			
