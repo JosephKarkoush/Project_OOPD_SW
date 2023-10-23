@@ -19,7 +19,7 @@ public class ActivityPanel extends JPanel {
 	JButton changeName = new JButton("Change name");
 	
 	
-	private Activity[] activities;
+	private String[] activities = {"List"};
 	JComboBox comboBox = new JComboBox(activities);
 	
 
