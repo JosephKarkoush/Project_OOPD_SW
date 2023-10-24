@@ -16,6 +16,10 @@ public class TrackPoint {
 	String cadence;
 
 	String[] atributeslist = new String[9];
+	
+	public TrackPoint() {
+		
+	}
 
 	public TrackPoint(String inputLine) {
 		atributeslist = inputLine.replace(",", ".").split(";");
@@ -29,6 +33,49 @@ public class TrackPoint {
 		this.heartRate = atributeslist[7];
 		this.speed = atributeslist[8];
 		this.cadence = atributeslist[9];
+
+	}
+	
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public void setElapsedTime(int elapsedTime) {
+		this.time = String.valueOf(elapsedTime);
+	}
+
+	public void setLatitude(double latitide) {
+		this.latitude = String.valueOf(latitide);
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = String.valueOf(longitude);;
+	}
+
+	public void setAltitude(double altitide) {
+		this.altitude = String.valueOf(altitide);
+
+	}
+
+	public void setDistance(double distance) {
+		this.distance = String.valueOf(distance);
+	}
+
+	public void setHeartRate(int HeartRate) {
+		this.heartRate = String.valueOf(HeartRate);;
+	}
+
+	public void setSpeed(double speed) {
+		this.speed = String.valueOf(speed);
+
+	}
+
+	public void setCadence(double cadence) {
+		this.cadence = String.valueOf(cadence);
 
 	}
 
