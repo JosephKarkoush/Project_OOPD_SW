@@ -9,10 +9,11 @@ import java.util.NoSuchElementException;
 
 import db.DbConnectionManager;
 import model.Activity;
+import model.TrackPoint;
 
 public class ActivityDao implements Dao<Activity> {
 	DbConnectionManager dbConManagerSingleton = null;
-
+	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 	public ActivityDao() {
 		dbConManagerSingleton = DbConnectionManager.getInstance();
 	}
@@ -20,13 +21,29 @@ public class ActivityDao implements Dao<Activity> {
 	@Override
 	public Activity get(long id) {
 		Activity activity = null;
+		
 		try {
 			ResultSet resultSet = dbConManagerSingleton
-					.excecuteQuery("SELECT id, title, student_id FROM activitys WHERE id=" + id);
+					.excecuteQuery("SELECT activity_id, activity_name, user_id, activity_date FROM Activity WHERE activity_id=" + id);
 			if (!resultSet.next())
 				throw new NoSuchElementException("The activity with id " + id + " doesen't exist in database");
 			else {
-				activity = new Activity(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3));
+				ResultSet trackPointCheck = dbConManagerSingleton.excecuteQuery("SELECT * form Activty WHERE activity_id=" + id);
+				while(trackPointCheck.next()) {
+					TrackPoint trackPoint = new TrackPoint();
+					trackPoint.setAltitude(trackPointCheck.getDouble("altitude"));
+					trackPoint.setCadence(trackPointCheck.getDouble("cadencce"));
+					trackPoint.setDate(trackPointCheck.getString("date"));
+					trackPoint.setDistance(trackPointCheck.getDouble("distance"));
+					trackPoint.setElapsedTime(trackPointCheck.getInt("elapsed_time"));
+					trackPoint.setHeartRate(trackPointCheck.getInt("hearrate"));
+					trackPoint.setLatitude(trackPointCheck.getDouble("latitude"));
+					trackPoint.setLongitude(trackPointCheck.getDouble("longitude"));
+					trackPoint.setSpeed(trackPointCheck.getDouble("speed"));
+					trackPoint.setTime(trackPointCheck.getString("time"));
+					trackPointList.add(trackPoint);
+				}
+				activity = new Activity(trackPointList, resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3));
 				}
 			
 			dbConManagerSingleton.close();
@@ -42,9 +59,9 @@ public class ActivityDao implements Dao<Activity> {
 		List<Activity> list = new ArrayList<>();
 
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT id, title, student_id FROM activitys");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT * form Activty");
 			while (resultSet.next()) {
-				list.add(new Activity(resultSet.getInt(1), resultSet.getString(2).trim(), resultSet.getInt(3)));
+				list.add(new Activity(trackPointList,resultSet.getInt(1), resultSet.getString(2).trim(), resultSet.getInt(3)));
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
