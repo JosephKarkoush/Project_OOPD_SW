@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dao.ActivityDao;
+
 public class Import {
 	String line;
 	String test;
@@ -30,6 +32,8 @@ public class Import {
 		}
 
 		Activity newActivity = new Activity(trackPointList);
+		ActivityDao dao = new ActivityDao();
+		dao.saveTrackPoint(trackPointList);
 		Statistic statistic = new Statistic(newActivity);
 		
 		this.test = statistic.getMaxCadence();

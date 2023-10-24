@@ -23,6 +23,7 @@ public interface Dao<T> {
 	 */
 	List<T> getAll();
 	
+	
 	/**
 	 * Takes a object of type T and store it in the database
 	 * The object should have no 'id' set

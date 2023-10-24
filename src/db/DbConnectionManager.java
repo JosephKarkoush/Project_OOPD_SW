@@ -24,7 +24,7 @@ import java.sql.Statement;
  */
 public class DbConnectionManager {
 	
-	private static final String DB_NAME = "joseph_mohammed_user"; // CHANGE VALUE TO YOUR DATABASE
+	private static final String DB_NAME = "joseph_mohammed_db"; // CHANGE VALUE TO YOUR DATABASE
 	private static final String USER = "joseph_mohammed_user"; // CHANGE VALUE TO YOUR USER
 	private static final String PASSWORD = "jm123!"; // CHANGE VALUE TO YOUR PASSWORD
 	//private static final String PASSWORD = "m0zartk0g3l"; // Change value to your password

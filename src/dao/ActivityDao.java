@@ -25,7 +25,7 @@ public class ActivityDao implements Dao<Activity> {
 
 		try {
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery(
-					"SELECT activity_id, activity_name, user_id, activity_date FROM Activity WHERE activity_id=" + id);
+					"SELECT activity_id, activity_name, user_id, activity_date FROM activity WHERE activity_id=" + id);
 			if (!resultSet.next())
 				throw new NoSuchElementException("The activity with id " + id + " doesen't exist in database");
 			else {
@@ -60,12 +60,16 @@ public class ActivityDao implements Dao<Activity> {
 	@Override
 	public List<Activity> getAll() {
 		List<Activity> list = new ArrayList<>();
+		List<Integer> activityID = new ArrayList<>();
 
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT * form Activty");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT activity_id from Activty");
 			while (resultSet.next()) {
-				list.add(new Activity(trackPointList, resultSet.getInt(1), resultSet.getString(2).trim(),
-						resultSet.getInt(3)));
+				activityID.add(resultSet.getInt(1));
+			}
+			for (int i = 0; i < activityID.size(); i++) {
+				Activity ac = get(activityID.get(i));
+				list.add(ac);
 			}
 			dbConManagerSingleton.close();
 		} catch (SQLException e) {
@@ -82,8 +86,8 @@ public class ActivityDao implements Dao<Activity> {
 			return t;
 		try {
 			// *******This is the main 'save' operation ***************************
-			preparedStatement = dbConManagerSingleton.prepareStatement(
-					"INSERT INTO activitys (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("INSERT INTO activity (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
 
 			preparedStatement.setString(1, t.getName());
 			preparedStatement.setLong(2, t.getUserId());
@@ -101,6 +105,34 @@ public class ActivityDao implements Dao<Activity> {
 		return new Activity(emptyList, 0, "No Name", 0);
 	}
 
+	public void saveTrackPoint(List<TrackPoint> trackPointList) {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton.prepareStatement(
+					"INSERT INTO LoggData (activity_id, activity_date,time,latitud,longitud,altitud,speed,distance,heart_rate,cadence,elapsed_time)"
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;");
+			for (TrackPoint trackPoint : trackPointList) {
+
+				preparedStatement.setLong(1, trackPoint.getActivityId());
+				preparedStatement.setString(2, trackPoint.getDate());
+				preparedStatement.setString(3, trackPoint.getTime());
+				preparedStatement.setDouble(4, Double.parseDouble(trackPoint.getLatitude()));
+				preparedStatement.setDouble(5, Double.parseDouble(trackPoint.getLongitude()));
+				preparedStatement.setDouble(6, Double.parseDouble(trackPoint.getAltitude()));
+				preparedStatement.setDouble(7, Double.parseDouble(trackPoint.getSpeed()));
+				preparedStatement.setDouble(8, Double.parseDouble(trackPoint.getDistance()));
+				preparedStatement.setLong(9, Integer.parseInt(trackPoint.getHeartRate()));
+				preparedStatement.setDouble(10, Double.parseDouble(trackPoint.getCadence()));
+				preparedStatement.setLong(11, Integer.parseInt(trackPoint.getElapsedTime()));
+
+				preparedStatement.addBatch();
+			}
+			preparedStatement.executeBatch();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public Activity update(Activity t, String[] params) {
 		// TODO Auto-generated method stub
@@ -115,7 +147,7 @@ public class ActivityDao implements Dao<Activity> {
 		try {
 			// *******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton
-					.prepareStatement("UPDATE activitys SET title=?, student_id=? WHERE id=? RETURNING id;");
+					.prepareStatement("UPDATE activity SET activity_name=?, student_id=? WHERE id=? RETURNING id;");
 			preparedStatement.setString(1, t.getName());
 			preparedStatement.setLong(2, t.getUserId());
 			preparedStatement.setLong(3, t.getId());

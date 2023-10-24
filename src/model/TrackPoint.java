@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackPoint {
+	long activityId;
 	String date;
 	String time;
 	String elapsedTime;
@@ -120,5 +121,9 @@ public class TrackPoint {
 	public String getCadence() {
 		return cadence;
 
+	}
+	public long getActivityId() {
+		return activityId;
+		
 	}
 }
