@@ -80,14 +80,10 @@ public class ActivityDao implements Dao<Activity> {
 		try {
 			// *******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton
-<<<<<<< HEAD
 					.prepareStatement("INSERT INTO activitys (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
-=======
 					.prepareStatement("INSERT INTO activity (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
 			
 			
-			
->>>>>>> branch 'master' of https://github.com/JosephKarkoush/Project_OOPD_SW.git
 			preparedStatement.setString(1, t.getName());
 			preparedStatement.setLong(2, t.getUserId());
 			
