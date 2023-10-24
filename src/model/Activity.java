@@ -27,6 +27,11 @@ public class Activity {
 	public String getName() {
 		return name;
 	}
+	
+	public List<TrackPoint> getList() {
+		return trackPointList;
+		
+	}
 
 	public void setTitle(String title) {
 		this.name = title;

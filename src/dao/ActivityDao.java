@@ -13,13 +13,14 @@ import model.TrackPoint;
 
 public class ActivityDao implements Dao<Activity> {
 	DbConnectionManager dbConManagerSingleton = null;
-	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
+	
 	public ActivityDao() {
 		dbConManagerSingleton = DbConnectionManager.getInstance();
 	}
 
 	@Override
 	public Activity get(long id) {
+		List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 		Activity activity = null;
 		
 		try {
@@ -79,20 +80,20 @@ public class ActivityDao implements Dao<Activity> {
 		try {
 			// *******This is the main 'save' operation ***************************
 			preparedStatement = dbConManagerSingleton
-					.prepareStatement("INSERT INTO activitys (title, student_id) " + "VALUES (?, ?) RETURNING id;");
+					.prepareStatement("INSERT INTO activitys (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
 			preparedStatement.setString(1, t.getName());
 			preparedStatement.setLong(2, t.getUserId());
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			resultSet.next();
 			long generatedId = resultSet.getLong(1);
-			return new Activity(generatedId, t.getName(), t.getUserId());
+			return new Activity(t.getList(), generatedId, t.getName(), t.getUserId());
 			// ********************************************************************
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return new Activity(0, "No Name", 0);
+		List<TrackPoint> emptyList = new ArrayList<TrackPoint>();
+		return new Activity(emptyList,0, "No Name", 0);
 	}
 
 	@Override
