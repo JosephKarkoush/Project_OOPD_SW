@@ -10,8 +10,9 @@ import java.util.List;
  *
  */
 public class User {
-	private int id;
-	private String name;
+	private int id = 1;
+	private  String password = "jm123";
+	private String name = "Mohammed Ali";
 	private List<Activity> activities;
 
 	/**

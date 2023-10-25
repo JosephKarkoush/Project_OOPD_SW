@@ -33,7 +33,7 @@ public class Import {
 
 		Activity newActivity = new Activity(trackPointList);
 		ActivityDao dao = new ActivityDao();
-		dao.saveTrackPoint(trackPointList);
+		dao.save(newActivity);
 		Statistic statistic = new Statistic(newActivity);
 		
 		this.test = statistic.getMaxCadence();

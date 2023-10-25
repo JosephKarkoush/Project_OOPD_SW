@@ -6,11 +6,13 @@ import java.util.List;
 public class Activity {
 	String name;
 	private long id;
-	private long userId;
+	private long userId;;
+	private String date;
 	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 	
 	public Activity(List<TrackPoint> trackPointList) {
 		this.trackPointList = trackPointList;
+		this.date = trackPointList.get(0).getDate();
 	}
 	
 	public Activity(List<TrackPoint> trackPointList, long id, String name, long userId) {
@@ -18,6 +20,7 @@ public class Activity {
 		this.id = id;
 		this.name = name;
 		this.userId = userId;
+		this.date = trackPointList.get(0).getDate();
 	}
 	
 	public long getId() {
@@ -31,6 +34,10 @@ public class Activity {
 	public List<TrackPoint> getList() {
 		return trackPointList;
 		
+	}
+	
+	public String getDate() {
+		return this.date;
 	}
 
 	public void setTitle(String title) {

@@ -86,16 +86,21 @@ public class ActivityDao implements Dao<Activity> {
 			return t;
 		try {
 			// *******This is the main 'save' operation ***************************
-			preparedStatement = dbConManagerSingleton
-					.prepareStatement("INSERT INTO activity (activity_name, user_id) " + "VALUES (?, ?) RETURNING id;");
+			preparedStatement = dbConManagerSingleton.prepareStatement(
+					"INSERT INTO \"Activity\" (activity_name, user_id, activity_date) " + "VALUES (?, ?, ?) RETURNING activity_id;");
 
 			preparedStatement.setString(1, t.getName());
-			preparedStatement.setLong(2, t.getUserId());
+			preparedStatement.setLong(2, 1);
+			preparedStatement.setString(3, t.getDate());
 
 			preparedStatement.execute();
 			resultSet = preparedStatement.getResultSet();
 			resultSet.next();
 			long generatedId = resultSet.getLong(1);
+			saveTrackPoint(t.getList(), generatedId);
+
+			
+			
 			return new Activity(t.getList(), generatedId, t.getName(), t.getUserId());
 			// ********************************************************************
 		} catch (SQLException e) {
@@ -105,15 +110,15 @@ public class ActivityDao implements Dao<Activity> {
 		return new Activity(emptyList, 0, "No Name", 0);
 	}
 
-	public void saveTrackPoint(List<TrackPoint> trackPointList) {
+	public void saveTrackPoint(List<TrackPoint> trackPointList, long id) {
 		PreparedStatement preparedStatement = null;
 		try {
 			preparedStatement = dbConManagerSingleton.prepareStatement(
-					"INSERT INTO LoggData (activity_id, activity_date,time,latitud,longitud,altitud,speed,distance,heart_rate,cadence,elapsed_time)"
-							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id;");
+					"INSERT INTO \"LoggData\" (activity_id, activity_date,time,latitud,longitud,altitud,speed,distance,heart_rate,cadence,elapsed_time)"
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING loggdata_id;");
 			for (TrackPoint trackPoint : trackPointList) {
 
-				preparedStatement.setLong(1, trackPoint.getActivityId());
+				preparedStatement.setLong(1, id);
 				preparedStatement.setString(2, trackPoint.getDate());
 				preparedStatement.setString(3, trackPoint.getTime());
 				preparedStatement.setDouble(4, Double.parseDouble(trackPoint.getLatitude()));
@@ -124,10 +129,10 @@ public class ActivityDao implements Dao<Activity> {
 				preparedStatement.setLong(9, Integer.parseInt(trackPoint.getHeartRate()));
 				preparedStatement.setDouble(10, Double.parseDouble(trackPoint.getCadence()));
 				preparedStatement.setLong(11, Integer.parseInt(trackPoint.getElapsedTime()));
-
 				preparedStatement.addBatch();
 			}
 			preparedStatement.executeBatch();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
