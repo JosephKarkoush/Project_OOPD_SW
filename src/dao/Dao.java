@@ -38,7 +38,6 @@ public interface Dao<T> {
 	 * @param t An object T wich carries new data for update
 	 * @param params A String array with the attribute names that should be updated
 	 */
-	T update(T t, String[] params);
 	
 	/**
 	 * Simplified version of update.
@@ -52,7 +51,7 @@ public interface Dao<T> {
 	 * method should handle that properly somehow.. It is not the same as
 	 * deleting the book, it just no longer 'belongs to' a certain student.
 	 */
-	T update(T t);
+	void update(T t , String str);
 	
 	/**
 	 * Deletes corresponding database record based on 'id' in object t <br>
@@ -60,7 +59,7 @@ public interface Dao<T> {
 	 * If a corresponding record is found that record is removed and a corresponding object of type T is returned.<br>
 	 * If no corresponding record is found, no operation is performed and an empty object of type T is returned
 	 */
-	T delete(T t);
+	 void delete(T t);
 	
 	/**
 	 * Simplified version of Delete that uses the 'id' directly to identify
@@ -71,7 +70,7 @@ public interface Dao<T> {
 	 * If no such record is found no record is removed and an empty object T is returned.
 	 * NOTE: The use of Exception could be considered.. but maybe this is just "normal" operations.
 	 */
-	T delete(long id);
+	void delete(long id);
 	
 	
 	/**

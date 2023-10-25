@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 import db.DbConnectionManager;
 import model.Activity;
+import model.Statistic;
 import model.TrackPoint;
 
 public class ActivityDao implements Dao<Activity> {
@@ -45,7 +46,8 @@ public class ActivityDao implements Dao<Activity> {
 					trackPoint.setTime(trackPointCheck.getString("time"));
 					trackPointList.add(trackPoint);
 				}
-				activity = new Activity(trackPointList, resultSet.getInt(1), resultSet.getString(2),
+				Statistic statistic = new Statistic(trackPointList);
+				activity = new Activity(trackPointList, statistic, resultSet.getInt(1), resultSet.getString(2),
 						resultSet.getInt(3));
 			}
 
@@ -86,8 +88,9 @@ public class ActivityDao implements Dao<Activity> {
 			return t;
 		try {
 			// *******This is the main 'save' operation ***************************
-			preparedStatement = dbConManagerSingleton.prepareStatement(
-					"INSERT INTO \"Activity\" (activity_name, user_id, activity_date) " + "VALUES (?, ?, ?) RETURNING activity_id;");
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("INSERT INTO \"Activity\" (activity_name, user_id, activity_date) "
+							+ "VALUES (?, ?, ?) RETURNING activity_id;");
 
 			preparedStatement.setString(1, t.getName());
 			preparedStatement.setLong(2, 1);
@@ -98,16 +101,15 @@ public class ActivityDao implements Dao<Activity> {
 			resultSet.next();
 			long generatedId = resultSet.getLong(1);
 			saveTrackPoint(t.getList(), generatedId);
-
-			
-			
-			return new Activity(t.getList(), generatedId, t.getName(), t.getUserId());
+			saveStatistic(t.getStatistic(), generatedId);
+			return new Activity(t.getList(), t.getStatistic(), generatedId, t.getName(), t.getUserId());
 			// ********************************************************************
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		List<TrackPoint> emptyList = new ArrayList<TrackPoint>();
-		return new Activity(emptyList, 0, "No Name", 0);
+		Statistic statistic = new Statistic();
+		return new Activity(emptyList, statistic, 0, "No Name", 0);
 	}
 
 	public void saveTrackPoint(List<TrackPoint> trackPointList, long id) {
@@ -138,46 +140,87 @@ public class ActivityDao implements Dao<Activity> {
 		}
 	}
 
-	@Override
-	public Activity update(Activity t, String[] params) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Activity update(Activity t) {
+	public void saveStatistic(Statistic statistic, long id) {
 		PreparedStatement preparedStatement = null;
-		if (t.getId() == 0) // Activity has not been saved before and therefore can't be updated.
-			return t;
 		try {
-			// *******This is the main 'save' operation ***************************
-			preparedStatement = dbConManagerSingleton
-					.prepareStatement("UPDATE activity SET activity_name=?, student_id=? WHERE id=? RETURNING id;");
-			preparedStatement.setString(1, t.getName());
-			preparedStatement.setLong(2, t.getUserId());
-			preparedStatement.setLong(3, t.getId());
-			boolean affectedRows = preparedStatement.execute();
-			if (!affectedRows) {
-				throw new SQLException("No update was performed on activity with 'id' " + t.getId());
-			}
+			preparedStatement = dbConManagerSingleton.prepareStatement(
+					"INSERT INTO \"refined_data\" (activity_id, total_distance,start_time,end_time,maximal_speed,minimal_speed,avg_speed,maximal_cadence,minimal_cadence,avg_cadence,maximal_heartrate,minimal_heartrate,avg_heartrate)"
+							+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING refineddata_id;");
 
-			// ********************************************************************
+			preparedStatement.setLong(1, id);
+			preparedStatement.setDouble(2, Double.parseDouble(statistic.getTotalDistance()));
+			preparedStatement.setString(3, statistic.getStartTime());
+			preparedStatement.setString(4, statistic.getEndTime());
+			preparedStatement.setDouble(5, Double.parseDouble(statistic.getMaxSpeed()));
+			preparedStatement.setDouble(6, Double.parseDouble(statistic.getMinSpeed()));
+			preparedStatement.setDouble(7, Double.parseDouble(statistic.getAvgSpeed()));
+			preparedStatement.setDouble(8, Double.parseDouble(statistic.getMaxCadence()));
+			preparedStatement.setDouble(9, Double.parseDouble(statistic.getMinCadence()));
+			preparedStatement.setDouble(10, Double.parseDouble(statistic.getAvgCadence()));
+			preparedStatement.setDouble(11, Double.parseDouble(statistic.getMaxHeartRate()));
+			preparedStatement.setDouble(12, Double.parseDouble(statistic.getMinHeartRate()));
+			preparedStatement.setDouble(13, Double.parseDouble(statistic.getAvgHeartRate()));
+
+			preparedStatement.execute();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return t;
 	}
 
 	@Override
-	public Activity delete(Activity t) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(Activity t, String str) {
+		long id = t.getId();
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("update \"Activity\" set activity_name= '" + str + "' where activity_id=" + id);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public void update(long id, String str) {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("update \"Activity\" set activity_name= '" + str + "'where activity_id=" + id);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+	}
+	@Override
+	public void delete(Activity t) {
+		long id = t.getId();
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE activity where activity_id=" + id);
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE loggdata where activity_id=" + id);
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE refined_data where activity_id=" + id);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+		}
 	}
 
 	@Override
-	public Activity delete(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void delete(long id) {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"Activity\"  where activity_id=" + id);
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"LoggData\" where activity_id=" + id);
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"refined_data\" where activity_id=" + id);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+		}
 	}
 
 }

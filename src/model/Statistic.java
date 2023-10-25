@@ -16,7 +16,6 @@ public class Statistic {
 	String minHeartRate;
 	String maxHeartRate;
 	String avgHeartRate;
-	Activity activity;
 	double sumSpeed = 0;
 	double minSpeedValue = 1000;
 	double maxSpeedValue = 0;
@@ -28,28 +27,32 @@ public class Statistic {
 	double sumCadence = 0;
 	double minCadenceValue = 10000;
 	double maxCadenceValue = 0;
+	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 
-	public Statistic(Activity activity) {
-		this.activity = activity;
+	public Statistic(List<TrackPoint> trackPointList) {
+		this.trackPointList = trackPointList;
 		getAvgCadence();
 		getAvgHeartRate();
 		getAvgSpeed();
 	}
 
+	public Statistic() {
+		
+	}
 	public String getAvgSpeed() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			double speedValue = Double.parseDouble(activity.trackPointList.get(i).getSpeed());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			double speedValue = Double.parseDouble(trackPointList.get(i).getSpeed());
 			sumSpeed += speedValue;
 		}
-		sumSpeed = sumSpeed / activity.trackPointList.size();
+		sumSpeed = sumSpeed / trackPointList.size();
 		this.avgSpeed = Double.toString(sumSpeed);
 		return avgSpeed;
 	}
 
 	public String getMinSpeed() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getSpeed()) < minSpeedValue) {
-				minSpeedValue = Double.parseDouble(activity.trackPointList.get(i).getSpeed());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getSpeed()) < minSpeedValue) {
+				minSpeedValue = Double.parseDouble(trackPointList.get(i).getSpeed());
 			}
 		}
 		this.minSpeed = Double.toString(minSpeedValue);
@@ -58,9 +61,9 @@ public class Statistic {
 	}
 
 	public String getMaxSpeed() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getSpeed()) > maxSpeedValue) {
-				maxSpeedValue = Double.parseDouble(activity.trackPointList.get(i).getSpeed());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getSpeed()) > maxSpeedValue) {
+				maxSpeedValue = Double.parseDouble(trackPointList.get(i).getSpeed());
 			}
 		}
 		this.maxSpeed = Double.toString(maxSpeedValue);
@@ -69,20 +72,20 @@ public class Statistic {
 	}
 
 	public String getAvgHeartRate() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
+		for (int i = 0; i < trackPointList.size(); i++) {
 			// räknar ut summan av alla hjärtslag
-			double heartRateValue = Double.parseDouble(activity.trackPointList.get(i).getHeartRate());
+			double heartRateValue = Double.parseDouble(trackPointList.get(i).getHeartRate());
 			sumHeartRate += heartRateValue;
 		}
-		sumHeartRate = sumHeartRate / activity.trackPointList.size();
+		sumHeartRate = sumHeartRate / trackPointList.size();
 		this.avgHeartRate = Double.toString(sumHeartRate);
 		return avgHeartRate;
 	}
 
 	public String getMinHeartRate() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getHeartRate()) < minHeartRateValue) {
-				minHeartRateValue = Double.parseDouble(activity.trackPointList.get(i).getHeartRate());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getHeartRate()) < minHeartRateValue) {
+				minHeartRateValue = Double.parseDouble(trackPointList.get(i).getHeartRate());
 			}
 
 		}
@@ -92,9 +95,9 @@ public class Statistic {
 	}
 
 	public String getMaxHeartRate() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getHeartRate()) > maxHeartRateValue) {
-				maxHeartRateValue = Double.parseDouble(activity.trackPointList.get(i).getHeartRate());
+		for (int i = 0; i <trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getHeartRate()) > maxHeartRateValue) {
+				maxHeartRateValue = Double.parseDouble(trackPointList.get(i).getHeartRate());
 			}
 
 		}
@@ -104,20 +107,20 @@ public class Statistic {
 	}
 
 	public String getAvgCadence() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
+		for (int i = 0; i < trackPointList.size(); i++) {
 			// räkna ut summan av candence
-			double cadenceValue = Double.parseDouble(activity.trackPointList.get(i).getCadence());
+			double cadenceValue = Double.parseDouble(trackPointList.get(i).getCadence());
 			sumCadence += cadenceValue;
 		}
-		sumCadence = sumCadence / activity.trackPointList.size();
+		sumCadence = sumCadence / trackPointList.size();
 		this.avgCadence = Double.toString(sumCadence);
 		return avgHeartRate;
 	}
 
 	public String getMinCadence() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getCadence()) < minCadenceValue) {
-				minCadenceValue = Double.parseDouble(activity.trackPointList.get(i).getCadence());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getCadence()) < minCadenceValue) {
+				minCadenceValue = Double.parseDouble(trackPointList.get(i).getCadence());
 			}
 
 		}
@@ -127,9 +130,9 @@ public class Statistic {
 	}
 	
 	public String getMaxCadence() {
-		for (int i = 0; i < activity.trackPointList.size(); i++) {
-			if (Double.parseDouble(activity.trackPointList.get(i).getCadence()) > maxCadenceValue) {
-				maxCadenceValue = Double.parseDouble(activity.trackPointList.get(i).getCadence());
+		for (int i = 0; i < trackPointList.size(); i++) {
+			if (Double.parseDouble(trackPointList.get(i).getCadence()) > maxCadenceValue) {
+				maxCadenceValue = Double.parseDouble(trackPointList.get(i).getCadence());
 			}
 
 		}
@@ -139,20 +142,20 @@ public class Statistic {
 	}
 
 	public String getTotalDistance() {
-		int listSize = activity.trackPointList.size() - 1;
+		int listSize = trackPointList.size() - 1;
 
-		return activity.trackPointList.get(listSize).getDistance();
+		return trackPointList.get(listSize).getDistance();
 	}
 
 	public String getStartTime() {
-		return activity.trackPointList.get(0).getTime();
+		return trackPointList.get(0).getTime();
 
 	}
 
 	public String getEndTime() {
-		int listSize = activity.trackPointList.size() - 1;
+		int listSize = trackPointList.size() - 1;
 
-		return activity.trackPointList.get(listSize).getTime();
+		return trackPointList.get(listSize).getTime();
 	}
 
 }

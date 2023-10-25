@@ -8,19 +8,23 @@ public class Activity {
 	private long id;
 	private long userId;;
 	private String date;
+	Statistic statistic;
 	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 	
-	public Activity(List<TrackPoint> trackPointList) {
+	public Activity(List<TrackPoint> trackPointList, Statistic statistic){
+		this.statistic = statistic;
 		this.trackPointList = trackPointList;
 		this.date = trackPointList.get(0).getDate();
+		this.statistic = new Statistic(trackPointList);
 	}
 	
-	public Activity(List<TrackPoint> trackPointList, long id, String name, long userId) {
+	public Activity(List<TrackPoint> trackPointList, Statistic statistic, long id, String name, long userId) {
 		this.trackPointList = trackPointList;
 		this.id = id;
 		this.name = name;
 		this.userId = userId;
 		this.date = trackPointList.get(0).getDate();
+		this.statistic = new Statistic(trackPointList);
 	}
 	
 	public long getId() {
@@ -38,6 +42,10 @@ public class Activity {
 	
 	public String getDate() {
 		return this.date;
+	}
+	
+	public Statistic getStatistic() {
+		return this.statistic;
 	}
 
 	public void setTitle(String title) {

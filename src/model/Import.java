@@ -30,13 +30,13 @@ public class Import {
 		} catch (Exception e) { 
 			System.err.println("file not found");
 		}
-
-		Activity newActivity = new Activity(trackPointList);
+		Statistic statistic = new Statistic(trackPointList);
+		Activity newActivity = new Activity(trackPointList,statistic);
 		ActivityDao dao = new ActivityDao();
-		dao.save(newActivity);
-		Statistic statistic = new Statistic(newActivity);
+		dao.update(3,"kalleanka");
 		
-		this.test = statistic.getMaxCadence();
+		
+		this.test = newActivity.statistic.getMaxCadence();
 		
 	}
 	public String test() {
