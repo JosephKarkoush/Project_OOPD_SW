@@ -1,20 +1,24 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 
 import controller.Controller1;
 
 public class DisplayPanel extends JPanel {
 	private Controller1 ctr;
 	String fileName;
-	
+
 	GraphPanel graphPanel;
 	JPanel buttonPanel = new JPanel();
 	JButton importButton = new JButton("Import");
@@ -22,7 +26,7 @@ public class DisplayPanel extends JPanel {
 	JFileChooser fileChooser = new JFileChooser();
 
 	public DisplayPanel(Controller1 ctr) {
-		this.ctr=ctr;
+		this.ctr = ctr;
 		graphPanel = new GraphPanel(ctr);
 		setLayout(new BorderLayout());
 		buttonPanel.setLayout(new GridLayout(1, 2));
@@ -40,6 +44,9 @@ public class DisplayPanel extends JPanel {
 			System.out.println(fileName);
 			ctr.insertFilePath(fileName);
 			ctr.saveActivity();
+			String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
+			ctr.setName(userInput);
+
 		}
 	}
 }

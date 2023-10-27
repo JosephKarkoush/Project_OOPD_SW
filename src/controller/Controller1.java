@@ -37,6 +37,13 @@ public class Controller1 {
 		return activityNames;
 		
 	}
+	
+	public void setName(String str) {
+		dao.update(importCsv.getAct(), str);
+	}
+	
+	public void changeName(String str) {
+	}
 
 	
 }

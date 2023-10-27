@@ -36,6 +36,7 @@ public class ImportCsv {
 	
 	public Activity getAct() {
 		return newActivity;
+		
 	}
 	
 	
