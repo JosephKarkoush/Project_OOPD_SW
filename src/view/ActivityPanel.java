@@ -10,10 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import controller.Controller1;
 import model.Activity;
 
 public class ActivityPanel extends JPanel {
-	DataPanel dataPanel = new DataPanel();
+	Controller1 ctr; 
+	DataPanel dataPanel = new DataPanel(ctr);
 	
 	JPanel secondButtonPanel = new JPanel();
 	JButton changeName = new JButton("Change name");
@@ -23,7 +25,8 @@ public class ActivityPanel extends JPanel {
 	JComboBox comboBox = new JComboBox(activities);
 	
 
-	public ActivityPanel() {
+	public ActivityPanel(Controller1 ctr) {
+		this.ctr = ctr;
 		setLayout(new BorderLayout());
 		secondButtonPanel.setLayout(new GridLayout(1,2));
 		secondButtonPanel.add(changeName);

@@ -1,6 +1,5 @@
 package model;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +7,14 @@ import java.util.Scanner;
 
 import dao.ActivityDao;
 
-public class Import {
+public class ImportCsv {
 	String line;
-	String test;
-	public Import() {
+
+	public ImportCsv(String filePath) {
 
 		List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 		try {
-			FileReader fileReader = new FileReader(
-					"C:\\Users\\moham\\Downloads\\csv\\csv\\argostoliGrekland\\activity_2016019890.csv");
+			FileReader fileReader = new FileReader(filePath);
 			Scanner sc = new Scanner(fileReader);
 			sc.nextLine();
 
@@ -25,22 +23,17 @@ public class Import {
 				TrackPoint tp = new TrackPoint(line);
 				trackPointList.add(tp);
 			}
+			System.out.println("Här är import");
 			sc.close();
-			
-		} catch (Exception e) { 
+
+		} catch (Exception e) {
 			System.err.println("file not found");
 		}
 		Statistic statistic = new Statistic(trackPointList);
-		Activity newActivity = new Activity(trackPointList,statistic);
+		Activity newActivity = new Activity(trackPointList, statistic);
 		ActivityDao dao = new ActivityDao();
-		dao.update(3,"kalleanka");
-		
-		
-		this.test = newActivity.statistic.getMaxCadence();
-		
+		dao.save(newActivity);
+
 	}
-	public String test() {
-		return test;
-	}
-	
+
 }
