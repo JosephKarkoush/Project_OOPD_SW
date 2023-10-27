@@ -14,8 +14,8 @@ import controller.Controller1;
 public class DisplayPanel extends JPanel {
 	private Controller1 ctr;
 	String fileName;
-	GraphPanel graphPanel = new GraphPanel(ctr);
-
+	
+	GraphPanel graphPanel;
 	JPanel buttonPanel = new JPanel();
 	JButton importButton = new JButton("Import");
 	JButton addListButton = new JButton("Delete");
@@ -23,7 +23,7 @@ public class DisplayPanel extends JPanel {
 
 	public DisplayPanel(Controller1 ctr) {
 		this.ctr=ctr;
-		
+		graphPanel = new GraphPanel(ctr);
 		setLayout(new BorderLayout());
 		buttonPanel.setLayout(new GridLayout(1, 2));
 		buttonPanel.add(addListButton);
@@ -37,6 +37,7 @@ public class DisplayPanel extends JPanel {
 		int userResponse = fileChooser.showOpenDialog(null);
 		if (userResponse == JFileChooser.APPROVE_OPTION) {
 			fileName = fileChooser.getSelectedFile().getAbsolutePath();
+			System.out.println(fileName);
 			ctr.insertFilePath(fileName);
 		}
 	}

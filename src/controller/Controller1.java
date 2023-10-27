@@ -3,7 +3,6 @@ package controller;
 import model.*;
 
 public class Controller1 {
-	private String newFilePathes;
 	//private ImportCsv importCsv;
 	public Controller1() {
 
@@ -14,7 +13,6 @@ public class Controller1 {
 //	}
 	
 	public void insertFilePath(String newFilePath) {
-		this.newFilePathes = newFilePath;
 		ImportCsv importCsv = new ImportCsv(newFilePath);
 	}
 

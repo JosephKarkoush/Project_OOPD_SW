@@ -128,7 +128,7 @@ public class ActivityDao implements Dao<Activity> {
 				preparedStatement.setDouble(6, Double.parseDouble(trackPoint.getAltitude()));
 				preparedStatement.setDouble(7, Double.parseDouble(trackPoint.getSpeed()));
 				preparedStatement.setDouble(8, Double.parseDouble(trackPoint.getDistance()));
-				preparedStatement.setLong(9, Integer.parseInt(trackPoint.getHeartRate()));
+				preparedStatement.setDouble(9, Double.parseDouble(trackPoint.getHeartRate()));
 				preparedStatement.setDouble(10, Double.parseDouble(trackPoint.getCadence()));
 				preparedStatement.setLong(11, Integer.parseInt(trackPoint.getElapsedTime()));
 				preparedStatement.addBatch();
