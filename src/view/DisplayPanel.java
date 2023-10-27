@@ -37,7 +37,7 @@ public class DisplayPanel extends JPanel {
 		int userResponse = fileChooser.showOpenDialog(null);
 		if (userResponse == JFileChooser.APPROVE_OPTION) {
 			fileName = fileChooser.getSelectedFile().getAbsolutePath();
-			controller1.insertFilePath(fileName);
+			ctr.insertFilePath(fileName);
 		}
 	}
 }
