@@ -18,12 +18,12 @@ public class Activity {
 		this.statistic = new Statistic(trackPointList);
 	}
 	
-	public Activity(List<TrackPoint> trackPointList, Statistic statistic, long id, String name, long userId) {
+	public Activity(List<TrackPoint> trackPointList, Statistic statistic, long id, String name, long userId,String date) {
 		this.trackPointList = trackPointList;
 		this.id = id;
 		this.name = name;
+		this.date=date;
 		this.userId = userId;
-		this.date = trackPointList.get(0).getDate();
 		this.statistic = new Statistic(trackPointList);
 	}
 	

@@ -9,9 +9,9 @@ import dao.ActivityDao;
 
 public class ImportCsv {
 	String line;
-
+	Activity newActivity;
 	public ImportCsv(String filePath) {
-
+		
 		List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 		try {
 			FileReader fileReader = new FileReader(filePath);
@@ -30,10 +30,14 @@ public class ImportCsv {
 			System.err.println("file not found");
 		}
 		Statistic statistic = new Statistic(trackPointList);
-		Activity newActivity = new Activity(trackPointList, statistic);
-		ActivityDao dao = new ActivityDao();
-		dao.save(newActivity);
+		newActivity = new Activity(trackPointList, statistic);
 
 	}
+	
+	public Activity getAct() {
+		return newActivity;
+	}
+	
+	
 
 }

@@ -26,29 +26,29 @@ public class ActivityDao implements Dao<Activity> {
 
 		try {
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery(
-					"SELECT activity_id, activity_name, user_id, activity_date FROM activity WHERE activity_id=" + id);
+					"SELECT activity_id, activity_name, user_id, activity_date  FROM \"Activity\" WHERE activity_id=" + id);
 			if (!resultSet.next())
 				throw new NoSuchElementException("The activity with id " + id + " doesen't exist in database");
 			else {
 				ResultSet trackPointCheck = dbConManagerSingleton
-						.excecuteQuery("SELECT * form Activty WHERE activity_id=" + id);
+						.excecuteQuery("SELECT * from \"LoggData\" WHERE activity_id=" + id);
 				while (trackPointCheck.next()) {
 					TrackPoint trackPoint = new TrackPoint();
-					trackPoint.setAltitude(trackPointCheck.getDouble("altitude"));
-					trackPoint.setCadence(trackPointCheck.getDouble("cadencce"));
-					trackPoint.setDate(trackPointCheck.getString("date"));
-					trackPoint.setDistance(trackPointCheck.getDouble("distance"));
-					trackPoint.setElapsedTime(trackPointCheck.getInt("elapsed_time"));
-					trackPoint.setHeartRate(trackPointCheck.getInt("hearrate"));
-					trackPoint.setLatitude(trackPointCheck.getDouble("latitude"));
-					trackPoint.setLongitude(trackPointCheck.getDouble("longitude"));
-					trackPoint.setSpeed(trackPointCheck.getDouble("speed"));
-					trackPoint.setTime(trackPointCheck.getString("time"));
+					trackPoint.setAltitude(trackPointCheck.getDouble(7));
+					trackPoint.setCadence(trackPointCheck.getDouble(11));
+					trackPoint.setDate(trackPointCheck.getString(3));
+					trackPoint.setDistance(trackPointCheck.getDouble(9));
+					trackPoint.setElapsedTime(trackPointCheck.getInt(12));
+					trackPoint.setHeartRate(trackPointCheck.getInt(10));
+					trackPoint.setLatitude(trackPointCheck.getDouble(5));
+					trackPoint.setLongitude(trackPointCheck.getDouble(6));
+					trackPoint.setSpeed(trackPointCheck.getDouble(8));
+					trackPoint.setTime(trackPointCheck.getString(4));
 					trackPointList.add(trackPoint);
 				}
 				Statistic statistic = new Statistic(trackPointList);
 				activity = new Activity(trackPointList, statistic, resultSet.getInt(1), resultSet.getString(2),
-						resultSet.getInt(3));
+						resultSet.getInt(3),resultSet.getString(4));
 			}
 
 			dbConManagerSingleton.close();
@@ -65,7 +65,7 @@ public class ActivityDao implements Dao<Activity> {
 		List<Integer> activityID = new ArrayList<>();
 
 		try {
-			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT activity_id from Activty");
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT activity_id from \"Activity\"");
 			while (resultSet.next()) {
 				activityID.add(resultSet.getInt(1));
 			}
@@ -102,14 +102,14 @@ public class ActivityDao implements Dao<Activity> {
 			long generatedId = resultSet.getLong(1);
 			saveTrackPoint(t.getList(), generatedId);
 			saveStatistic(t.getStatistic(), generatedId);
-			return new Activity(t.getList(), t.getStatistic(), generatedId, t.getName(), t.getUserId());
+			return new Activity(t.getList(), t.getStatistic(), generatedId, t.getName(), t.getUserId(),t.getDate());
 			// ********************************************************************
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		List<TrackPoint> emptyList = new ArrayList<TrackPoint>();
 		Statistic statistic = new Statistic();
-		return new Activity(emptyList, statistic, 0, "No Name", 0);
+		return new Activity(emptyList, statistic, 0, "No Name", 0, "no date");
 	}
 
 	public void saveTrackPoint(List<TrackPoint> trackPointList, long id) {

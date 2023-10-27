@@ -21,12 +21,11 @@ public class ActivityPanel extends JPanel {
 	JButton changeName = new JButton("Change name");
 	
 	
-	private String[] activities = {"List"};
-	JComboBox comboBox = new JComboBox(activities);
 	
 
 	public ActivityPanel(Controller1 ctr) {
 		this.ctr = ctr;
+		JComboBox comboBox = new JComboBox(ctr.getAllActivityNames());
 		setLayout(new BorderLayout());
 		secondButtonPanel.setLayout(new GridLayout(1,2));
 		secondButtonPanel.add(changeName);
@@ -34,7 +33,7 @@ public class ActivityPanel extends JPanel {
 		
 		add(secondButtonPanel, BorderLayout.SOUTH);
 		add(dataPanel, BorderLayout.CENTER);
-
+		System.out.println(ctr.getAllActivityNames().toString());
 	}
 	public void settActivites(List<Activity> activities) {
 		

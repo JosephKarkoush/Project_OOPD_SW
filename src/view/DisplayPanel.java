@@ -39,6 +39,7 @@ public class DisplayPanel extends JPanel {
 			fileName = fileChooser.getSelectedFile().getAbsolutePath();
 			System.out.println(fileName);
 			ctr.insertFilePath(fileName);
+			ctr.saveActivity();
 		}
 	}
 }
