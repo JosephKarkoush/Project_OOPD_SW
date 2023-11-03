@@ -9,11 +9,12 @@ public class GraphPanel extends JTabbedPane {
 	Controller1 ctr;
 	MapGraph mapGraph = new MapGraph(ctr);
 	AltitudeGraph altitudeGraph = new AltitudeGraph(ctr);
-	SpeedGraph speedGraph = new SpeedGraph(ctr);
+	
 	HeartRateGraph heartRateGraph = new HeartRateGraph(ctr);
 	
 	public GraphPanel(Controller1 ctr) {
-		this.ctr = ctr; 
+		this.ctr = ctr;
+		SpeedGraph speedGraph = new SpeedGraph(ctr);
 		addTab("Map Graph", mapGraph);
 		addTab("Map Altitude", altitudeGraph);
 		addTab("Speed Graph", speedGraph);

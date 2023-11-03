@@ -196,11 +196,25 @@ public class ActivityDao implements Dao<Activity> {
 		long id = t.getId();
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE activity where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"Activity\" where activity_id=" + id);
 			preparedStatement.execute();
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE loggdata where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"loggdata\" where activity_id=" + id);
 			preparedStatement.execute();
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE refined_data where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"refined_data\" where activity_id=" + id);
+			preparedStatement.execute();
+		} catch (SQLException e) {
+		}
+	}
+	
+	@Override
+	public void deleteAll() {
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"Activity\"");
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"loggdata\"");
+			preparedStatement.execute();
+			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"refined_data\"");
 			preparedStatement.execute();
 		} catch (SQLException e) {
 		}

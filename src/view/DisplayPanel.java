@@ -17,24 +17,36 @@ import controller.Controller1;
 
 public class DisplayPanel extends JPanel {
 	private Controller1 ctr;
+	ActivityPanel activityPanel;
 	String fileName;
 
 	GraphPanel graphPanel;
 	JPanel buttonPanel = new JPanel();
 	JButton importButton = new JButton("Import");
-	JButton addListButton = new JButton("Delete");
+	JButton deleteListButton = new JButton("Delete");
 	JFileChooser fileChooser = new JFileChooser();
 
-	public DisplayPanel(Controller1 ctr) {
+	public DisplayPanel(Controller1 ctr, ActivityPanel activityPanel) {
 		this.ctr = ctr;
+		this.activityPanel = activityPanel;
 		graphPanel = new GraphPanel(ctr);
 		setLayout(new BorderLayout());
 		buttonPanel.setLayout(new GridLayout(1, 2));
-		buttonPanel.add(addListButton);
+		buttonPanel.add(deleteListButton);
 		buttonPanel.add(importButton);
 		add(buttonPanel, BorderLayout.SOUTH);
 		add(graphPanel, BorderLayout.CENTER);
 		importButton.addActionListener(e -> readFileName());
+		deleteListButton.addActionListener(e -> delete());
+	}
+
+	public void delete() {
+		if (activityPanel.errorCheck("Listan är tom")) {
+
+			ctr.deleteActivity();
+			activityPanel.updateComboBox();
+			activityPanel.dataPanel.updateData();
+		}
 	}
 
 	private void readFileName() {
@@ -46,6 +58,8 @@ public class DisplayPanel extends JPanel {
 			ctr.saveActivity();
 			String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
 			ctr.setName(userInput);
+			activityPanel.updateComboBox();
+			activityPanel.dataPanel.updateData();
 
 		}
 	}

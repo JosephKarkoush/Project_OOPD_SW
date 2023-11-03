@@ -60,6 +60,7 @@ public interface Dao<T> {
 	 * If no corresponding record is found, no operation is performed and an empty object of type T is returned
 	 */
 	 void delete(T t);
+	 void deleteAll();
 	
 	/**
 	 * Simplified version of Delete that uses the 'id' directly to identify
