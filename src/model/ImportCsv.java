@@ -31,6 +31,8 @@ public class ImportCsv {
 		}
 		Statistic statistic = new Statistic(trackPointList);
 		newActivity = new Activity(trackPointList, statistic);
+		System.out.println(trackPointList.get(trackPointList.size()-100).getElapsedTime());
+
 
 	}
 	

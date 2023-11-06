@@ -19,15 +19,16 @@ import model.Activity;
 public class ActivityPanel extends JPanel {
 	Controller1 ctr;
 	DataPanel dataPanel;
-
+	MainPanel mainPanel;
 	JPanel secondButtonPanel = new JPanel();
 	JComboBox<String> comboBox;
 	JButton changeName = new JButton("Change name");
 	JButton applyActivity = new JButton("Apply");
 	JButton deleteAll = new JButton("Delete All Activities");
 
-	public ActivityPanel(Controller1 ctr) {
+	public ActivityPanel(Controller1 ctr, MainPanel mainPanel) {
 		this.ctr = ctr;
+		this.mainPanel = mainPanel;
 		 dataPanel = new DataPanel(ctr);
 		this.comboBox = new JComboBox();
 		
@@ -71,6 +72,9 @@ public class ActivityPanel extends JPanel {
 			String str = comboBox.getSelectedItem().toString();
 			ctr.setCurrentActivity(str);
 			dataPanel.updateData();
+		if (mainPanel.displayPanel != null){
+			mainPanel.updateGraphs();
+		}
 		}
 	}
 

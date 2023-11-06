@@ -23,7 +23,8 @@ public class TrackPoint {
 	}
 
 	public TrackPoint(String inputLine) {
-		atributeslist = inputLine.replace(",", ".").split(";");
+		String line = inputLine.replaceAll(",", ".");
+		atributeslist = line.split(";");
 		this.date = atributeslist[0];
 		this.time = atributeslist[1];
 		this.elapsedTime = atributeslist[2];
@@ -45,8 +46,8 @@ public class TrackPoint {
 		this.time = time;
 	}
 
-	public void setElapsedTime(int elapsedTime) {
-		this.time = String.valueOf(elapsedTime);
+	public void setElapsedTime(double d) {
+		this.elapsedTime = String.valueOf(d);
 	}
 
 	public void setLatitude(double latitide) {

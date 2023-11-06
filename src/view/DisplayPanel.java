@@ -63,4 +63,7 @@ public class DisplayPanel extends JPanel {
 
 		}
 	}
+	public void updateGraphs() {
+		graphPanel.updateGraphs();
+	}
 }

@@ -16,15 +16,17 @@ public class SpeedGraph extends JPanel {
 	
 	public SpeedGraph(Controller1 ctr) {
 		this.ctr = ctr;
-		add(pw);
-
+		
+		pw = new PlotView();
 		}
-	
+		
 	public void updateSpeedGraph() {
+		removeAll();
 		if(ctr.getCurrentActivity() != null)
 		activity = ctr.getCurrentActivity();
 		pw = new PlotView("hastighet", this.activity,tp -> Double.parseDouble(tp.getSpeed()));
-
+		add(pw);
+		
 		
 	}
 	}

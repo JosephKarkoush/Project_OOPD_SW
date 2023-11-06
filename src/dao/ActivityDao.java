@@ -38,7 +38,7 @@ public class ActivityDao implements Dao<Activity> {
 					trackPoint.setCadence(trackPointCheck.getDouble(11));
 					trackPoint.setDate(trackPointCheck.getString(3));
 					trackPoint.setDistance(trackPointCheck.getDouble(9));
-					trackPoint.setElapsedTime(trackPointCheck.getInt(12));
+					trackPoint.setElapsedTime(trackPointCheck.getDouble(12));
 					trackPoint.setHeartRate(trackPointCheck.getInt(10));
 					trackPoint.setLatitude(trackPointCheck.getDouble(5));
 					trackPoint.setLongitude(trackPointCheck.getDouble(6));
@@ -130,7 +130,7 @@ public class ActivityDao implements Dao<Activity> {
 				preparedStatement.setDouble(8, Double.parseDouble(trackPoint.getDistance()));
 				preparedStatement.setDouble(9, Double.parseDouble(trackPoint.getHeartRate()));
 				preparedStatement.setDouble(10, Double.parseDouble(trackPoint.getCadence()));
-				preparedStatement.setLong(11, Integer.parseInt(trackPoint.getElapsedTime()));
+				preparedStatement.setDouble(11, Double.parseDouble(trackPoint.getElapsedTime()));
 				preparedStatement.addBatch();
 			}
 			preparedStatement.executeBatch();

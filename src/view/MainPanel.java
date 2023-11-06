@@ -8,16 +8,21 @@ import controller.Controller1;
 
 public class MainPanel extends JPanel {
 	Controller1 ctr;
-	
+	ActivityPanel activityPanel;
+	DisplayPanel displayPanel;
 	public MainPanel(Controller1 ctr) {
 		this.ctr=ctr;
-		ActivityPanel activityPanel = new ActivityPanel(this.ctr);
-		DisplayPanel displayPanel = new DisplayPanel(this.ctr, activityPanel);
+		activityPanel = new ActivityPanel(this.ctr, this);
+		displayPanel = new DisplayPanel(this.ctr, activityPanel);
 		setLayout(new GridLayout(1, 2));
 		add(displayPanel);
 		add(activityPanel);
 		
 		
+	}
+	
+	public void updateGraphs() {
+		displayPanel.updateGraphs();
 	}
 
 }
