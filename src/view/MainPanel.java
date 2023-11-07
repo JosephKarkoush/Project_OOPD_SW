@@ -13,7 +13,7 @@ public class MainPanel extends JPanel {
 	public MainPanel(Controller1 ctr) {
 		this.ctr=ctr;
 		activityPanel = new ActivityPanel(this.ctr, this);
-		displayPanel = new DisplayPanel(this.ctr, activityPanel);
+		displayPanel = new DisplayPanel(this.ctr);
 		setLayout(new GridLayout(1, 2));
 		add(displayPanel);
 		add(activityPanel);

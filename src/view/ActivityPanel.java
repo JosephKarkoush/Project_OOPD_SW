@@ -9,6 +9,7 @@ import javax.sql.RowSetListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.plaf.nimbus.AbstractRegionPainter;
@@ -26,25 +27,38 @@ public class ActivityPanel extends JPanel {
 	JButton applyActivity = new JButton("Apply");
 	JButton deleteAll = new JButton("Delete All Activities");
 
+	String fileName;
+	JPanel buttonPanel = new JPanel();
+	JButton importButton = new JButton("Import");
+	JButton deleteListButton = new JButton("Delete");
+	JFileChooser fileChooser = new JFileChooser();
+
 	public ActivityPanel(Controller1 ctr, MainPanel mainPanel) {
 		this.ctr = ctr;
 		this.mainPanel = mainPanel;
-		 dataPanel = new DataPanel(ctr);
+		dataPanel = new DataPanel(ctr);
 		this.comboBox = new JComboBox();
-		
+
 		updateComboBox();
 		setActivity();
 		setLayout(new BorderLayout());
-		secondButtonPanel.setLayout(new GridLayout(2, 2));
+		secondButtonPanel.setLayout(new GridLayout(2, 3));
 		secondButtonPanel.add(changeName);
 		secondButtonPanel.add(applyActivity);
 		secondButtonPanel.add(comboBox);
 		secondButtonPanel.add(deleteAll);
+		secondButtonPanel.add(deleteListButton);
+		secondButtonPanel.add(importButton);
+
 		add(secondButtonPanel, BorderLayout.SOUTH);
 		add(dataPanel, BorderLayout.CENTER);
 		applyActivity.addActionListener(e -> setActivity());
 		changeName.addActionListener(e -> changeName());
 		deleteAll.addActionListener(e -> deleteAll());
+
+		importButton.addActionListener(e -> readFileName());
+		deleteListButton.addActionListener(e -> delete());
+
 	}
 
 	public void changeName() {
@@ -72,9 +86,9 @@ public class ActivityPanel extends JPanel {
 			String str = comboBox.getSelectedItem().toString();
 			ctr.setCurrentActivity(str);
 			dataPanel.updateData();
-		if (mainPanel.displayPanel != null){
-			mainPanel.updateGraphs();
-		}
+		if (mainPanel.displayPanel != null) {
+				mainPanel.updateGraphs();
+			}
 		}
 	}
 
@@ -93,6 +107,30 @@ public class ActivityPanel extends JPanel {
 			return true;
 		}
 
+	}
+
+	private void readFileName() {
+		int userResponse = fileChooser.showOpenDialog(null);
+		if (userResponse == JFileChooser.APPROVE_OPTION) {
+			fileName = fileChooser.getSelectedFile().getAbsolutePath();
+			System.out.println(fileName);
+			ctr.insertFilePath(fileName);
+			ctr.saveActivity();
+			String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
+			ctr.setName(userInput);
+			updateComboBox();
+			dataPanel.updateData();
+
+		}
+	}
+
+	public void delete() {
+		if (errorCheck("Listan är tom")) {
+
+			ctr.deleteActivity();
+			updateComboBox();
+			dataPanel.updateData();
+		}
 	}
 
 }

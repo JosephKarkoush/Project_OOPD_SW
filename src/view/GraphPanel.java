@@ -1,30 +1,33 @@
 package view;
 
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import controller.Controller1;
+import model.Activity;
 
 public class GraphPanel extends JTabbedPane {
 	Controller1 ctr;
-	MapGraph mapGraph;
-	AltitudeGraph altitudeGraph;
-	SpeedGraph speedGraph;
-	HeartRateGraph heartRateGraph;
+	Activity activity;
 	
 	public GraphPanel(Controller1 ctr) {
 		this.ctr = ctr;
-		speedGraph = new SpeedGraph(ctr);
-		heartRateGraph = new HeartRateGraph(ctr);
-		altitudeGraph = new AltitudeGraph(ctr);
-		mapGraph = new MapGraph(ctr);
-		addTab("Map Graph", mapGraph);
-		addTab("Map Altitude", altitudeGraph);
-		addTab("Speed Graph", speedGraph);
-		addTab("Heart Rate Graph", heartRateGraph);
 	}
-	
+
 	public void updateGraphs() {
-		speedGraph.updateSpeedGraph();
+		removeAll();
+		this.activity = ctr.getCurrentActivity();
+		addTab("Hastighet", new PlotView("Hastighet", this.activity, tp -> Double.parseDouble(tp.getSpeed())));
+		addTab("Puls", new PlotView("Puls", this.activity, tp -> Double.parseDouble(tp.getHeartRate())));
+		addTab("Altitude", new PlotView("Altitude", this.activity, tp -> Double.parseDouble(tp.getAltitude())));
+		addTab("Map graph", new MapGraph(ctr));
+		//revalidate();
+		
 	}
-}
+		
+		
+	}
+

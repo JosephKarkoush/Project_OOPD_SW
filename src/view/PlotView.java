@@ -93,11 +93,8 @@ public class PlotView extends JPanel {
 		super.paintComponent(g);
 		createArrays();
 		
-		Graphics2D g2d = (Graphics2D) g;
-		
-		g2d.scale(2, 2);
-		g2d.setColor(Color.BLUE);
-		g2d.drawPolyline(xPixels, yPixels, width);
+		g.setColor(Color.BLUE);
+		g.drawPolyline(xPixels, yPixels, width);
 	}
 
 	public interface DataFetcher {
