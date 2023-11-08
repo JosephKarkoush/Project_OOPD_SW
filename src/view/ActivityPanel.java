@@ -56,7 +56,7 @@ public class ActivityPanel extends JPanel {
 		secondButtonPanel.add(importButton);
 		user = ctr.getUser();
 		JLabel info = new JLabel("   | Inloggad Som: " + user.getUserName()+ ",    " + "Namn: " + user.getName() + ",    " + "Ålder: " + user.getAge() + ",    " + "Vikt: " + user.getWeight() + " |");
-		info.setFont(new Font("Arial", Font.PLAIN, 25));
+		info.setFont(new Font("Arial", Font.PLAIN, 18));
 		
 		add(secondButtonPanel, BorderLayout.SOUTH);
 		add(dataPanel, BorderLayout.CENTER);
