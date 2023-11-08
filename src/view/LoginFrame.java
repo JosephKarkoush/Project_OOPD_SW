@@ -1,7 +1,9 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,9 +14,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import controller.Controller1;
+
 public class LoginFrame extends JFrame {
-	String userName = "22moal04";
-	String passWord = "1234";
+	Controller1 ctr = new Controller1();
 	
 	JPanel panel = new JPanel();
 	JTextField username = new JTextField() ;
@@ -25,6 +28,8 @@ public class LoginFrame extends JFrame {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(300, 150);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		setVisible(true);
 		panel.setLayout(new GridLayout(5,1));
 		add(panel);
@@ -43,8 +48,8 @@ public class LoginFrame extends JFrame {
 	
 	public void checkbutton() {
 		
-		if(userName.equals(username.getText()) && passWord.equals(password.getText())) {
-			SwingUtilities.invokeLater(() -> new MainFrame());
+		if(ctr.getUser().getUserName().equals(username.getText()) && ctr.getUser().getPassword().equals(password.getText())) {
+			SwingUtilities.invokeLater(() -> new MainFrame(ctr));
 			dispose();
 		} else {
 			JOptionPane.showMessageDialog(null, "Fel användernamn eller lösenord! Försök igen");

@@ -66,5 +66,9 @@ public class Controller1 {
 	public void deleteAllActivities() {
 		dao.deleteAll();
 	}
+	
+	public User getUser() {
+		return dao.getInfo();
+	}
 
 }

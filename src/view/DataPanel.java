@@ -28,7 +28,7 @@ public class DataPanel extends JPanel {
 	
 	public DataPanel(Controller1 ctr) {
 		this.ctr = ctr;
-		dataInformation.setFont(new Font("Arial", Font.PLAIN, 20));
+		dataInformation.setFont(new Font("Arial", Font.PLAIN, 25));
 		setLayout(new FlowLayout());
 		add(dataInformation);
 		setVisible(true);

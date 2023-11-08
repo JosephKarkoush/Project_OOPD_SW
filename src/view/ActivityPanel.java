@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,16 +11,20 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.plaf.nimbus.AbstractRegionPainter;
 
 import controller.Controller1;
 import model.Activity;
+import model.User;
 
 public class ActivityPanel extends JPanel {
 	Controller1 ctr;
 	DataPanel dataPanel;
+	//UserInfo userInfo;
+	User user;
 	MainPanel mainPanel;
 	JPanel secondButtonPanel = new JPanel();
 	JComboBox<String> comboBox;
@@ -38,7 +43,7 @@ public class ActivityPanel extends JPanel {
 		this.mainPanel = mainPanel;
 		dataPanel = new DataPanel(ctr);
 		this.comboBox = new JComboBox();
-
+		//this.userInfo = new UserInfo(ctr);
 		updateComboBox();
 		setActivity();
 		setLayout(new BorderLayout());
@@ -49,9 +54,13 @@ public class ActivityPanel extends JPanel {
 		secondButtonPanel.add(deleteAll);
 		secondButtonPanel.add(deleteListButton);
 		secondButtonPanel.add(importButton);
-
+		user = ctr.getUser();
+		JLabel info = new JLabel("   | Inloggad Som: " + user.getUserName()+ ",    " + "Namn: " + user.getName() + ",    " + "Ålder: " + user.getAge() + ",    " + "Vikt: " + user.getWeight() + " |");
+		info.setFont(new Font("Arial", Font.PLAIN, 25));
+		
 		add(secondButtonPanel, BorderLayout.SOUTH);
 		add(dataPanel, BorderLayout.CENTER);
+		add(info, BorderLayout.NORTH);
 		applyActivity.addActionListener(e -> setActivity());
 		changeName.addActionListener(e -> changeName());
 		deleteAll.addActionListener(e -> deleteAll());

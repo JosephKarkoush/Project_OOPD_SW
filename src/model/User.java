@@ -10,52 +10,44 @@ import java.util.List;
  *
  */
 public class User {
-	private int id = 1;
-	private  String password = "jm123";
-	private String name = "Mohammed Ali";
-	private List<Activity> activities;
+	private int id;
+	private long age;
+	private long weight;
+	private String userName;
+	private String password;
+	private String name ;
 
-	/**
-	 * Constructs a Student with name. Id is automatically added in
-	 * database
-	 * 
-	 * @param name      (String)
-	 * @param birthYear (integer)
-	 */
-	public User(String name) {
-		this(0, name);
-	}
-
-	public User(int id, String name) {
+	public User(int id, String userName, String name, long age, long weight, String password) {
 		this.id = id;
+		this.userName = userName;
 		this.name = name;
-		activities = new ArrayList<>();
+		this.age = age;
+		this.weight = weight;
+		this.password = password;
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
+	}
+
+	public String getUserName() {
+		return this.userName;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void addActivity(Activity activity) {
-		activity.setUserId(this.id);
-		activities.add(activity);
+	public long getAge() {
+		return this.age;
 	}
 
-	public List<Activity> getActivities() {
-		return activities;
+	public long getWeight() {
+		return this.weight;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder activitiesInfo = new StringBuilder();
-		for (Activity activity : activities) {
-			activitiesInfo.append(activity);
-		}
-		return String.format("Id: %7d %nName:     %s %nBirth year: %4d%n", id, name)
-				+ String.format("BOOKS:\n%s%n", activitiesInfo);
+	public String getPassword() {
+		return this.password;
 	}
+
 }

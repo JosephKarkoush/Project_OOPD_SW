@@ -1,15 +1,25 @@
 package view;
+
 import controller.*;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
-	Controller1 ctr = new Controller1();
-	MainPanel mainPanel = new MainPanel(ctr);
-	
-	public MainFrame() {
+	Controller1 ctr;
+	MainPanel mainPanel;
+
+	public MainFrame(Controller1 ctr) {
+		this.ctr = ctr;
+		this.mainPanel = new MainPanel(ctr);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		add(mainPanel);
-		setSize(1000, 1000);
+
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(dim.width, dim.height);
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
 		setVisible(true);
 	}
 

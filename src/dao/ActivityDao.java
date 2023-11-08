@@ -11,6 +11,7 @@ import db.DbConnectionManager;
 import model.Activity;
 import model.Statistic;
 import model.TrackPoint;
+import model.User;
 
 public class ActivityDao implements Dao<Activity> {
 	DbConnectionManager dbConManagerSingleton = null;
@@ -235,6 +236,21 @@ public class ActivityDao implements Dao<Activity> {
 			preparedStatement.execute();
 		} catch (SQLException e) {
 		}
+	}
+	
+	public User getInfo() {
+		try {
+			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT * from \"User\"");
+			while (resultSet.next()) {
+				return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getLong(4), resultSet.getLong(5), resultSet.getString(6));
+
+			}
+
+			dbConManagerSingleton.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return new User(0, null, null, 0, 0, null);
 	}
 
 }
