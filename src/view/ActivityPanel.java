@@ -21,29 +21,26 @@ import model.Activity;
 import model.User;
 
 public class ActivityPanel extends JPanel {
-	Controller1 ctr;
-	DataPanel dataPanel;
-	//UserInfo userInfo;
-	User user;
-	MainPanel mainPanel;
-	JPanel secondButtonPanel = new JPanel();
-	JComboBox<String> comboBox;
-	JButton changeName = new JButton("Change name");
-	JButton applyActivity = new JButton("Apply");
-	JButton deleteAll = new JButton("Delete All Activities");
+	private Controller1 ctr;
+	private DataPanel dataPanel;
+	private User user;
+	private MainPanel mainPanel;
+	private JPanel secondButtonPanel = new JPanel();
+	private JComboBox<String> comboBox;
+	private JButton changeName = new JButton("Change name");
+	private JButton applyActivity = new JButton("Apply");
+	private JButton deleteAll = new JButton("Delete All Activities");
 
-	String fileName;
-	JPanel buttonPanel = new JPanel();
-	JButton importButton = new JButton("Import");
-	JButton deleteListButton = new JButton("Delete");
-	JFileChooser fileChooser = new JFileChooser();
+	private String fileName;
+	private JButton importButton = new JButton("Import");
+	private JButton deleteListButton = new JButton("Delete");
+	private JFileChooser fileChooser = new JFileChooser();
 
 	public ActivityPanel(Controller1 ctr, MainPanel mainPanel) {
 		this.ctr = ctr;
 		this.mainPanel = mainPanel;
 		dataPanel = new DataPanel(ctr);
 		this.comboBox = new JComboBox();
-		//this.userInfo = new UserInfo(ctr);
 		updateComboBox();
 		setActivity();
 		setLayout(new BorderLayout());
@@ -55,9 +52,10 @@ public class ActivityPanel extends JPanel {
 		secondButtonPanel.add(deleteListButton);
 		secondButtonPanel.add(importButton);
 		user = ctr.getUser();
-		JLabel info = new JLabel("   | Inloggad Som: " + user.getUserName()+ ",    " + "Namn: " + user.getName() + ",    " + "Ålder: " + user.getAge() + ",    " + "Vikt: " + user.getWeight() + " |");
+		JLabel info = new JLabel("   | Inloggad Som: " + user.getUserName() + ",    " + "Namn: " + user.getName()
+				+ ",    " + "Ålder: " + user.getAge() + ",    " + "Vikt: " + user.getWeight() + " |");
 		info.setFont(new Font("Arial", Font.PLAIN, 18));
-		
+
 		add(secondButtonPanel, BorderLayout.SOUTH);
 		add(dataPanel, BorderLayout.CENTER);
 		add(info, BorderLayout.NORTH);
@@ -95,7 +93,7 @@ public class ActivityPanel extends JPanel {
 			String str = comboBox.getSelectedItem().toString();
 			ctr.setCurrentActivity(str);
 			dataPanel.updateData();
-		if (mainPanel.displayPanel != null) {
+			if (mainPanel.displayPanel != null) {
 				mainPanel.updateGraphs();
 			}
 		}

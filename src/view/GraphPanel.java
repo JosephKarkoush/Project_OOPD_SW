@@ -10,9 +10,9 @@ import controller.Controller1;
 import model.Activity;
 
 public class GraphPanel extends JTabbedPane {
-	Controller1 ctr;
-	Activity activity;
-	
+	private Controller1 ctr;
+	private Activity activity;
+
 	public GraphPanel(Controller1 ctr) {
 		this.ctr = ctr;
 	}
@@ -24,10 +24,7 @@ public class GraphPanel extends JTabbedPane {
 		addTab("Puls", new PlotView("Puls", this.activity, tp -> Double.parseDouble(tp.getHeartRate())));
 		addTab("Altitude", new PlotView("Altitude", this.activity, tp -> Double.parseDouble(tp.getAltitude())));
 		addTab("Map graph", new MapGraph(ctr));
-		//revalidate();
-		
-	}
-		
-		
+
 	}
 
+}

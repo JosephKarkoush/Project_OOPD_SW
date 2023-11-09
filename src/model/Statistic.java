@@ -4,30 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Statistic {
-	String totalDistance;
-	String startTime;
-	String endTime;
-	String minSpeed;
-	String maxSpeed;
-	String avgSpeed;
-	String minCandece;
-	String maxCandece;
-	String avgCadence;
-	String minHeartRate;
-	String maxHeartRate;
-	String avgHeartRate;
-	double sumSpeed = 0;
-	double minSpeedValue = 1000;
-	double maxSpeedValue = 0;
+	private String totalDistance;
+	private String startTime;
+	private String endTime;
+	private String minSpeed;
+	private String maxSpeed;
+	private String avgSpeed;
+	private String minCandece;
+	private String maxCandece;
+	private String avgCadence;
+	private String minHeartRate;
+	private String maxHeartRate;
+	private String avgHeartRate;
+	private double sumSpeed = 0;
+	private double minSpeedValue = 1000;
+	private double maxSpeedValue = 0;
 
-	double sumHeartRate = 0;
-	double minHeartRateValue = 1000;
-	double maxHeartRateValue = 0;
+	private double sumHeartRate = 0;
+	private double minHeartRateValue = 1000;
+	private double maxHeartRateValue = 0;
 
-	double sumCadence = 0;
-	double minCadenceValue = 10000;
-	double maxCadenceValue = 0;
-	List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
+	private double sumCadence = 0;
+	private double minCadenceValue = 10000;
+	private double maxCadenceValue = 0;
+	private List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 
 	public Statistic(List<TrackPoint> trackPointList) {
 		this.trackPointList = trackPointList;
@@ -37,8 +37,9 @@ public class Statistic {
 	}
 
 	public Statistic() {
-		
+
 	}
+
 	public String getAvgSpeed() {
 		for (int i = 0; i < trackPointList.size(); i++) {
 			double speedValue = Double.parseDouble(trackPointList.get(i).getSpeed());
@@ -73,7 +74,6 @@ public class Statistic {
 
 	public String getAvgHeartRate() {
 		for (int i = 0; i < trackPointList.size(); i++) {
-			// räknar ut summan av alla hjärtslag
 			double heartRateValue = Double.parseDouble(trackPointList.get(i).getHeartRate());
 			sumHeartRate += heartRateValue;
 		}
@@ -95,7 +95,7 @@ public class Statistic {
 	}
 
 	public String getMaxHeartRate() {
-		for (int i = 0; i <trackPointList.size(); i++) {
+		for (int i = 0; i < trackPointList.size(); i++) {
 			if (Double.parseDouble(trackPointList.get(i).getHeartRate()) > maxHeartRateValue) {
 				maxHeartRateValue = Double.parseDouble(trackPointList.get(i).getHeartRate());
 			}
@@ -108,7 +108,6 @@ public class Statistic {
 
 	public String getAvgCadence() {
 		for (int i = 0; i < trackPointList.size(); i++) {
-			// räkna ut summan av candence
 			double cadenceValue = Double.parseDouble(trackPointList.get(i).getCadence());
 			sumCadence += cadenceValue;
 		}
@@ -128,7 +127,7 @@ public class Statistic {
 		return minCandece;
 
 	}
-	
+
 	public String getMaxCadence() {
 		for (int i = 0; i < trackPointList.size(); i++) {
 			if (Double.parseDouble(trackPointList.get(i).getCadence()) > maxCadenceValue) {

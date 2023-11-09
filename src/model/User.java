@@ -3,19 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Immutable POJO version of Domain model class Student
- * 
- * @author awi
- *
- */
+
 public class User {
 	private int id;
 	private long age;
 	private long weight;
 	private String userName;
 	private String password;
-	private String name ;
+	private String name;
 
 	public User(int id, String userName, String name, long age, long weight, String password) {
 		this.id = id;

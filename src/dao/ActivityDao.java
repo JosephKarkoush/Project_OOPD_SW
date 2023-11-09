@@ -27,7 +27,8 @@ public class ActivityDao implements Dao<Activity> {
 
 		try {
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery(
-					"SELECT activity_id, activity_name, user_id, activity_date  FROM \"Activity\" WHERE activity_id=" + id);
+					"SELECT activity_id, activity_name, user_id, activity_date  FROM \"Activity\" WHERE activity_id="
+							+ id);
 			if (!resultSet.next())
 				throw new NoSuchElementException("The activity with id " + id + " doesen't exist in database");
 			else {
@@ -49,7 +50,7 @@ public class ActivityDao implements Dao<Activity> {
 				}
 				Statistic statistic = new Statistic(trackPointList);
 				activity = new Activity(trackPointList, statistic, resultSet.getInt(1), resultSet.getString(2),
-						resultSet.getInt(3),resultSet.getString(4));
+						resultSet.getInt(3), resultSet.getString(4));
 			}
 
 			dbConManagerSingleton.close();
@@ -103,7 +104,7 @@ public class ActivityDao implements Dao<Activity> {
 			long generatedId = resultSet.getLong(1);
 			saveTrackPoint(t.getList(), generatedId);
 			saveStatistic(t.getStatistic(), generatedId);
-			return new Activity(t.getList(), t.getStatistic(), generatedId, t.getName(), t.getUserId(),t.getDate());
+			return new Activity(t.getList(), t.getStatistic(), generatedId, t.getName(), t.getUserId(), t.getDate());
 			// ********************************************************************
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +182,7 @@ public class ActivityDao implements Dao<Activity> {
 			// TODO: handle exception
 		}
 	}
-	
+
 	public void update(long id, String str) {
 		PreparedStatement preparedStatement = null;
 		try {
@@ -192,21 +193,25 @@ public class ActivityDao implements Dao<Activity> {
 			// TODO: handle exception
 		}
 	}
+
 	@Override
 	public void delete(Activity t) {
 		long id = t.getId();
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"Activity\" where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"Activity\" where activity_id=" + id);
 			preparedStatement.execute();
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"loggdata\" where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"loggdata\" where activity_id=" + id);
 			preparedStatement.execute();
-			preparedStatement = dbConManagerSingleton.prepareStatement("DELETE from \"refined_data\" where activity_id=" + id);
+			preparedStatement = dbConManagerSingleton
+					.prepareStatement("DELETE from \"refined_data\" where activity_id=" + id);
 			preparedStatement.execute();
 		} catch (SQLException e) {
 		}
 	}
-	
+
 	@Override
 	public void deleteAll() {
 		PreparedStatement preparedStatement = null;
@@ -237,12 +242,13 @@ public class ActivityDao implements Dao<Activity> {
 		} catch (SQLException e) {
 		}
 	}
-	
+
 	public User getInfo() {
 		try {
 			ResultSet resultSet = dbConManagerSingleton.excecuteQuery("SELECT * from \"User\"");
 			while (resultSet.next()) {
-				return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getLong(4), resultSet.getLong(5), resultSet.getString(6));
+				return new User(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getLong(4), resultSet.getLong(5), resultSet.getString(6));
 
 			}
 

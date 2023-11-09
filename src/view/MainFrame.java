@@ -8,8 +8,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
-	Controller1 ctr;
-	MainPanel mainPanel;
+	private Controller1 ctr;
+	private MainPanel mainPanel;
 
 	public MainFrame(Controller1 ctr) {
 		this.ctr = ctr;

@@ -9,10 +9,10 @@ import dao.ActivityDao;
 import model.*;
 
 public class Controller1 {
-	ImportCsv importCsv;
-	Activity activity;
-	List<Activity> allActivities;
-	ActivityDao dao = new ActivityDao();
+	private ImportCsv importCsv;
+	private Activity activity;
+	private List<Activity> allActivities;
+	private ActivityDao dao = new ActivityDao();
 
 	// private ImportCsv importCsv;
 	public Controller1() {
@@ -66,7 +66,7 @@ public class Controller1 {
 	public void deleteAllActivities() {
 		dao.deleteAll();
 	}
-	
+
 	public User getUser() {
 		return dao.getInfo();
 	}

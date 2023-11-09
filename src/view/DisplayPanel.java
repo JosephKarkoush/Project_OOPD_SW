@@ -17,10 +17,9 @@ import controller.Controller1;
 
 public class DisplayPanel extends JPanel {
 	private Controller1 ctr;
-	ActivityPanel activityPanel;
+	private ActivityPanel activityPanel;
 
 	GraphPanel graphPanel;
-
 
 	public DisplayPanel(Controller1 ctr) {
 		this.ctr = ctr;
@@ -29,6 +28,7 @@ public class DisplayPanel extends JPanel {
 		add(graphPanel, BorderLayout.CENTER);
 
 	}
+
 	public void updateGraphs() {
 		graphPanel.updateGraphs();
 	}

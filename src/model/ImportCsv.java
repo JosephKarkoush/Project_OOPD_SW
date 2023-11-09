@@ -8,10 +8,11 @@ import java.util.Scanner;
 import dao.ActivityDao;
 
 public class ImportCsv {
-	String line;
-	Activity newActivity;
+	private String line;
+	private Activity newActivity;
+
 	public ImportCsv(String filePath) {
-		
+
 		List<TrackPoint> trackPointList = new ArrayList<TrackPoint>();
 		try {
 			FileReader fileReader = new FileReader(filePath);
@@ -31,16 +32,13 @@ public class ImportCsv {
 		}
 		Statistic statistic = new Statistic(trackPointList);
 		newActivity = new Activity(trackPointList, statistic);
-		System.out.println(trackPointList.get(trackPointList.size()-100).getElapsedTime());
-
+		System.out.println(trackPointList.get(trackPointList.size() - 100).getElapsedTime());
 
 	}
-	
+
 	public Activity getAct() {
 		return newActivity;
-		
+
 	}
-	
-	
 
 }

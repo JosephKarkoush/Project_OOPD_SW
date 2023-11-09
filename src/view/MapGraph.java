@@ -13,12 +13,12 @@ import controller.Controller1;
 import model.TrackPoint;
 
 public class MapGraph extends JPanel {
-	Controller1 ctr;
-	List<TrackPoint> trackpoints;
-	double minLat;
-	double minLon;
-	double maxLat;
-	double maxLon;
+	private Controller1 ctr;
+	private List<TrackPoint> trackpoints;
+	private double minLat;
+	private double minLon;
+	private double maxLat;
+	private double maxLon;
 
 	public MapGraph(Controller1 ctr) {
 		this.ctr = ctr;
@@ -80,8 +80,7 @@ public class MapGraph extends JPanel {
 //		for(TrackPoint tc : trackpoints) {
 //			System.out.println(tc.getLatitude());
 //		}
-		
-		
+
 		return yPix;
 	}
 

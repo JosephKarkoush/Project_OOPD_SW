@@ -24,9 +24,9 @@ public class PlotView extends JPanel {
 	private double maxDataValue; // related to height
 	private int[] xPixels;
 	private int[] yPixels;
-	
+
 	public PlotView() {
-		
+
 	}
 
 	public PlotView(String title, Activity activity, DataFetcher fetcher) {
@@ -92,7 +92,7 @@ public class PlotView extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		createArrays();
-		
+
 		g.setColor(Color.BLUE);
 		g.drawPolyline(xPixels, yPixels, width);
 	}

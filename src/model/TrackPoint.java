@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrackPoint {
-	long activityId;
-	String date;
-	String time;
-	String elapsedTime;
-	String latitude;
-	String longitude;
-	String altitude;
-	String distance;
-	String heartRate;
-	String speed;
-	String cadence;
+	private long activityId;
+	private String date;
+	private String time;
+	private String elapsedTime;
+	private String latitude;
+	private String longitude;
+	private String altitude;
+	private String distance;
+	private String heartRate;
+	private String speed;
+	private String cadence;
 
-	String[] atributeslist = new String[9];
-	
+	private String[] atributeslist = new String[9];
+
 	public TrackPoint() {
-		
+
 	}
 
 	public TrackPoint(String inputLine) {
@@ -37,7 +37,7 @@ public class TrackPoint {
 		this.cadence = atributeslist[9];
 
 	}
-	
+
 	public void setDate(String date) {
 		this.date = date;
 	}
@@ -55,7 +55,8 @@ public class TrackPoint {
 	}
 
 	public void setLongitude(double longitude) {
-		this.longitude = String.valueOf(longitude);;
+		this.longitude = String.valueOf(longitude);
+		;
 	}
 
 	public void setAltitude(double altitide) {
@@ -68,7 +69,8 @@ public class TrackPoint {
 	}
 
 	public void setHeartRate(int HeartRate) {
-		this.heartRate = String.valueOf(HeartRate);;
+		this.heartRate = String.valueOf(HeartRate);
+		;
 	}
 
 	public void setSpeed(double speed) {
@@ -123,8 +125,9 @@ public class TrackPoint {
 		return cadence;
 
 	}
+
 	public long getActivityId() {
 		return activityId;
-		
+
 	}
 }
