@@ -70,11 +70,13 @@ public class ActivityPanel extends JPanel {
 
 	public void changeName() {
 		if (errorCheck("Listan är tom")) {
-
 			String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
-			ctr.setName(userInput);
-			updateComboBox();
-
+			if (userInput == null || userInput.equals("")) {
+				JOptionPane.showMessageDialog(dataPanel, "tom namn ");
+			} else {
+				ctr.setName(userInput);
+				updateComboBox();
+			}
 		}
 
 	}
