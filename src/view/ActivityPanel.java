@@ -120,13 +120,17 @@ public class ActivityPanel extends JPanel {
 		int userResponse = fileChooser.showOpenDialog(null);
 		if (userResponse == JFileChooser.APPROVE_OPTION) {
 			fileName = fileChooser.getSelectedFile().getAbsolutePath();
-			System.out.println(fileName);
-			ctr.insertFilePath(fileName);
-			ctr.saveActivity();
-			String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
-			ctr.setName(userInput);
-			updateComboBox();
-			dataPanel.updateData();
+			String fileControll = ".csv";
+			if (fileName.substring(fileName.length() - 4).equals(fileControll)) {
+				ctr.insertFilePath(fileName);
+				ctr.saveActivity();
+				String userInput = JOptionPane.showInputDialog("Ange en beskrivning för filen:");
+				ctr.setName(userInput);
+				updateComboBox();
+				dataPanel.updateData();
+			} else {
+				JOptionPane.showMessageDialog(dataPanel, "Fel fil format!");
+			}
 
 		}
 	}
